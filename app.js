@@ -4,20 +4,14 @@
  */
 // Importamos Todas Nuestras Dependencias
 const express = require("express");
-const session = require("express-session");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const passport = require("passport");
 const promisify = require("es6-promisify").promisify;
-const flash = require("connect-flash");
 const expressValidator = require("express-validator");
-const sequelize = require("./config/database");
 const routes = require("./routes/index");
 const helpers = require("./helpers");
 const errorHandlers = require("./handlers/errorHandlers");
-require("./config/passport");
 
 // Creamos La aplicacion en Express
 const app = express();
@@ -39,43 +33,12 @@ app.use(expressValidator());
 // Se creara en req un propiedad cookies con las cookies que viene de cada peticion
 app.use(cookieParser());
 
-// Sessions nos permite guardar informacion de los visitantes cada vez que hacen una peticion
-// This keeps users logged in and allows us to send flash messages
-const store = new SequelizeStore({
-  db: sequelize,
-  checkExpirationInterval: 15 * 60 * 1000,
-  expiration: 24 * 60 * 60 * 1000
-});
-app.use(
-  session({
-    secret: process.env.SECRET,
-    key: process.env.KEY,
-    resave: false,
-    saveUninitialized: false,
-    store
-  })
-);
-store.sync();
-// Passport JS es una libreria que nos va a permitir manejar nuestros logins
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Esto nos va a permitir mandar mensajes de error a los visitantes de nuestra pajina
-app.use(flash());
-
 // Middleware propio
 app.use((req, res, next) => {
   res.locals.h = helpers; // Expondra el archivo helpers en la vistas
-  res.locals.flashes = req.flash(); // Expondra los flashes en la vistas
   res.locals.user = req.user || null; // Expondra el usuario en la vistas o sera null
   res.locals.currentPath = req.path; // Expondra la ruta
   next(); // Vamos a la siguiente funcion
-});
-
-// promisify convertira las algunas API basadas en callback a Promesas
-app.use((req, res, next) => {
-  req.login = promisify(req.login, req);
-  next();
 });
 
 // Configuracion de las rutas
