@@ -1,0 +1,58 @@
+extends layout
+block content
+
+    -function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    div
+        h1 #{app.nombre}
+        p #{app.descripcion}
+        h3 Fecha de Lanzamiento
+        p #{prettyDate(app.fechaLanzamiento)}
+        h3 Precio
+        p #{app.precio}
+        h3 Rating
+        p #{resultado}
+        h3  Features
+        each val in app.features
+            p - #{val}
+        h3 Categoria
+        p #{app.categoria.nombre}
+        h1 Última Versión (#{version.version})
+        h4 Tamaño de descarga
+        p #{version.size}
+        h4 Fecha de liberación
+        p #{prettyDate(version.fechaLanzamiento)}
+        h4 Paises disponibles
+        each val in version.paises
+            p #{val.nombre}
+        h4 Novedades
+        ul
+            each val in version.novedades
+                li - #{val}
+        h4 Requisitos
+        p - OS requerido: #{version.requisitos.OS}
+        p - RAM Mínima: #{version.requisitos.RAM}
+        p - Espacio Mínimo Requerido: #{version.requisitos.espacioMinimo}
+        h3 Idiomas
+        each val in app.idioma
+            p - #{val}
+        h3 Categorias relacionadas
+        each val in app.categoriasRelacionadas
+            p - #{val.nombre}
+        h3 Programador
+        p 
+            a(href=`/verProgramador/${app.programador._id}`) #{app.programador.email}
+        h3 Permisos
+        each val in app.permisos
+            p 
+                ul - #{val.nombre}
+                    each punto in val.descripcion
+                        li #{punto}

@@ -1,0 +1,17 @@
+extends layout
+block content
+
+    h3 Nombre: 
+        h4 #{programador.nombre}
+    h3 Email: 
+        h4 #{programador.email}
+    h3 País:
+        h4 #{programador.pais.nombre}
+    h3 Dirección: 
+        h4 #{programador.direccion}
+    h3 Apps:
+    each val in programador.aplicacionesId
+        h4
+            a(href=`/verApp/${val._id}`)    - #{val.nombre}
+        h4
+            a(href=`/crearApp/${programador._id}`) Crear Nueva App

@@ -1,3 +1,7 @@
 extends layout
 block content
-    a(href="/getAllApp") Ver todas las Apps
+    div 
+        h1 CATEGORIAS
+        each val in categorias
+            h3 
+                a(href=`/getAppsByCategoria/${val._id}`) #{val.nombre}

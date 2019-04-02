@@ -7,7 +7,6 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const promisify = require("es6-promisify").promisify;
 const expressValidator = require("express-validator");
 const routes = require("./routes/index");
 const helpers = require("./helpers");

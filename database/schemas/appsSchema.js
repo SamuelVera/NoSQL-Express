@@ -22,7 +22,7 @@ const appsSchema = new mongoose.Schema({
     idioma: [String],
     categoriasRelacionadas: [categoriasSchema],
     programador: {
-        type: String,
+        type: objectId,
         ref: 'Programador'
     },
     permisos: [permisosSchema]

@@ -18,10 +18,10 @@ const programadoresSchema = new mongoose.Schema({
         type: String
     },
     pais: paisesSchema,
-    aplicacionesId:{
-        type: [objectId],
+    aplicacionesId: [{
+        type: objectId,
         ref: 'App'
-    }
+    }]
 })
 
 module.exports = programadoresSchema
