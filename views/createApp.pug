@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 Crear App
+
+                    // register form
+                form(method='POST' action=`/crearApp/${_id}`)
+                    div.form-group
+                        label(for='nombre') Nombre:
+                        input#nombre.form-control(type='text', placeholder='Nombre' name='nombre')
+                    div.form-group
+                        label(for='descripcion') Descripción:
+                        input#descripcion.form-control(type='text', placeholder='descripcion' name='descripcion')
+                    div.form-group
+                        label(for='precio') Precio:
+                        input#precio.form-control(type='number' name='precio' min=0)
+                    div.form-group
+                        label(for='feature') Feature:
+                        input#feature.form-control(type='text', name='feature')
+                    div.form-group
+                        label(for='categoria') Categoría Principal:
+                        select(name='categoria')
+                            each val in categorias
+                                option(value=`${val.codigo}`) #{val.nombre}
+                    div.form-group
+                        label(for='idioma') Idioma:
+                        input#idioma.form-control(type='idioma', name='idioma')
+                    div.form-group
+                        label(for='permiso') Permiso:
+                        select(name='permiso')
+                            each val in permisos
+                                option(value=`${val._id}`) #{val.nombre}
+                    button.btn.btn-primary(type='submit') Crear

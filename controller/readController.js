@@ -59,6 +59,12 @@ exports.getAppsByCategoria = async(req, res) => {
         'categoria._id': _id
     }).select(['nombre', 'fechaLanzamiento'
     , 'precio', 'categoria', 'programador']).populate('programador','email')
-    console.log(apps)
     res.render('getAppsByCategoria', {apps, categoria, title:'NoSQL'})
+}
+
+exports.getAllUsers = async (req, res) => {
+    let users = User.find()
+    res.render('getAllUsers', {
+        users, title: 'NoSQL'
+    })
 }
