@@ -53,3 +53,34 @@ exports.saveApp = async (req, res) => {
     res.redirect('/getAllApp')
 }
 
+exports.saveProgramador = async (req, res) => {
+    const {
+        nombre,
+        email,
+        direccion,
+        sitioWeb,
+        pais
+    } = req.body
+
+    const paisToAdd = await Pais.findOne({
+        _id: pais
+    })
+
+    const programadorAdd = new Programador({
+        nombre,
+        email,
+        direccion,
+        sitioWeb,
+        pais: paisToAdd,
+        aplicacionesId: []
+    })
+
+    console.log(programadorAdd)
+
+    //await programadorAdd.save()
+
+    res.render('getAllProgramadores',{
+        title: 'NoSQL'
+    })
+
+}

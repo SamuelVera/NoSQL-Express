@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { catchErrors } = require('../handlers/errorHandlers')
 const { getAllCategorias, getAllApps, getProgramador, getApp, getAppsByCategoria, getAllUsers,
-        getUser } = require('../controller/readController')
+        getUser, getAllProgramadores, verReviews } = require('../controller/readController')
 const { goToCreateApp, goToAddToWishList, goToDownloadApp, lookForUpdate,
-        goToAddCreditCard, goToUpdateUser } = require('../controller/variableController')
+        goToAddCreditCard, goToUpdateUser, goToAddProgramador } = require('../controller/variableController')
 const { addToWishList, downloadApp, addCreditCard, updateUser } = require('../controller/updateController')
-const { saveApp } = require('../controller/createController')
+const { saveApp, saveUser, saveProgramador } = require('../controller/createController')
 
 router.get('/', catchErrors(getAllCategorias))
 router.get('/getAllApp', catchErrors(getAllApps))
@@ -26,8 +26,10 @@ router.get('/addCreditCard/:_id',catchErrors(goToAddCreditCard))
 router.post('/addCreditCard/:_id',catchErrors(addCreditCard))
 router.get('/updateUser/:_id', catchErrors(goToUpdateUser))
 router.post('/updateUser/:_id', catchErrors(updateUser))
-router.get('/getAllProgramadores',catchErrors())
-router.get('/addUser',catchErrors())
-router.post('/addUser',catchErrors())
+router.get('/getAllProgramadores',catchErrors(getAllProgramadores))
+router.get('/verProgramador/:_id', catchErrors(getProgramador))
+router.get('/addProgramador',catchErrors(goToAddProgramador))
+router.post('/addProgramador',catchErrors(saveProgramador))
+router.get('/verReviews/:_id', catchErrors(verReviews))
 
 module.exports = router;

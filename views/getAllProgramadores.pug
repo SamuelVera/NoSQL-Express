@@ -8,14 +8,17 @@ block content
                     tr
                         th Nombre
                         th Email
+                        th Dirección
+                        th Sitio Web
                         th Pais
                         th Ver Datos
-                    each val in users
+                    each val in programadores
                         tr
                             td #{val.nombre}
                             td #{val.email}
+                            td #{val.direccion}
+                            td #{val.sitioWeb}
                             td #{val.pais.nombre}
                             td
-                                a(href=`/verUser/${val._id}`) Ir a Perfil
-                a(href='/addUser') Agregar Cuenta de Usuario
-                            
+                                a(href=`/verProgramador/${val._id}`) Ir a Perfil
+                a(href='/addProgramador') Agregar Programador

@@ -1,0 +1,33 @@
+extends layout
+block content
+
+    -function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1 #{app.nombre}
+                h3 Reseñas
+                table(style='width:100%', border='1')
+                    tr
+                        th Usuario
+                        th Email
+                        th Puntuacion
+                        th Comentario
+                        th Fecha
+
+                each val in reviews
+                    tr
+                        td #{val.user.nombre}
+                        td #{val.user.email}
+                        td #{val.puntuacion}
+                        td #{val.comentario}
+                        td #{val.fecha}

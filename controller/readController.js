@@ -87,3 +87,34 @@ exports.getUser = async (req, res) => {
         title: 'NoSQL'
     })
 }
+
+exports.getAllProgramadores = async (req, res) => {
+    let programadores = await Programador.find()
+    .select(['_id','email','nombre','direccion','sitioWeb','pais'])
+    res.render('getAllProgramadores',{
+        programadores,
+        title: 'NoSQL'
+    })
+}
+
+exports.verReviews = async (req, res) => {
+
+    const reviews = await Resena.find({
+        appId: req.params._id
+    })
+
+    const app = await App.find({
+        _id: req.params._id
+    })
+    .select(['_id','nombre'])
+    .populate('user',['nombre','email'])
+
+    console.log(reviews)
+
+    res.render('verReviews',{
+        reviews,
+        app,
+        title: 'NoSQL'
+    })
+
+}
