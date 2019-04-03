@@ -1,0 +1,68 @@
+extends layout
+block content
+
+    -function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1 Nombre
+                    p #{user.nombre}
+                h3 Email
+                    p #{user.email}
+                h3 Pais
+                    p #{user.pais.nombre}
+                h3 WishList
+                ul
+                    each val in user.wishList
+                        li
+                            a(href=`/verApp/${val._id}`) -- #{val.nombre}
+                p
+                    a(href=`/addToWishList/${user._id}`) Agregar App
+                h3 Biblioteca De Apps
+                table(style='width:100%', border='1')
+                    tr
+                        th Nombre
+                        th Version
+                        th Actualizar
+                    each val in user.biblioteca
+                        tr
+                            if val.version
+                                td
+                                    a(href=`/verApp/${val.appId._id}`)  #{val.appId.nombre} 
+                                td
+                                    p (#{val.version.version})
+                                td
+                                    a(href=`/updateApp/${val.appId._id}/${val.version._id}`) Buscar Actualización
+                            else
+                                td
+                                    a(href=`/verApp/${val.appId._id}`) - #{val.appId.nombre} 
+                                td
+                                    p (No hay versión liberada)
+                                td
+                                    a(href=`/verApp/${val.appId._id}/0`) Buscar Actualización      
+                p
+                    a(href=`/downloadApp/${user._id}`) Descargar App
+                h3 Tarjetas de Credito
+                table(style='width:100%', border='1')
+                    tr
+                        th Numero
+                        th Fecha de Expiración
+                        th Agregada el
+                    each val in user.tarjetasCredito
+                        tr
+                            td #{val.numero}
+                            td #{prettyDate(val.fechaExp)}
+                            td #{prettyDate(val.fechaAdd)}
+                p
+                    a(href=`/addCreditCard/${user._id}`) Agregar Tarjeta
+                h3
+                    a(href=`/updateUser/${user._id}`) Actualizar Datos

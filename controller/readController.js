@@ -47,7 +47,12 @@ exports.getApp = async(req, res) => {
         '_id': '$appId',
         'avgRating': { '$avg': { '$ifNull': ['$puntuacion',0 ] } }    
     })
-    res.render('getApp', { app, version, resultado: resultado[0].avgRating, title: 'NoSQL' })
+    if(resultado.length > 0){
+        res.render('getApp', { app, version, resultado: resultado[0].avgRating, title: 'NoSQL' })
+    }else{
+        res.render('getApp', { app, version, resultado: null, title: 'NoSQL' })
+    }
+    
 }
 
 exports.getAppsByCategoria = async(req, res) => {
@@ -63,8 +68,22 @@ exports.getAppsByCategoria = async(req, res) => {
 }
 
 exports.getAllUsers = async (req, res) => {
-    let users = User.find()
+    let users = await User.find()
+    .select(['_id','email','nombre','pais'])
     res.render('getAllUsers', {
         users, title: 'NoSQL'
+    })
+}
+
+exports.getUser = async (req, res) => {
+    let user = await User.findOne({
+        _id: req.params._id
+    })
+    .populate('biblioteca.appId',['_id','nombre'])
+    .populate('biblioteca.version', ['_id','version'])
+    console.log(user.biblioteca)
+    res.render('getUser',{
+        user,
+        title: 'NoSQL'
     })
 }

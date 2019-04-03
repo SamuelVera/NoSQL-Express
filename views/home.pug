@@ -1,7 +1,9 @@
 extends layout
 block content
-    div 
-        h1 CATEGORIAS
-        each val in categorias
-            h3 
-                a(href=`/getAppsByCategoria/${val._id}`) #{val.nombre}
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3 
+                h1 CATEGORIAS
+                each val in categorias
+                    h3 
+                        a(href=`/getAppsByCategoria/${val._id}`) #{val.nombre}

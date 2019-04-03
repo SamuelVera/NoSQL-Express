@@ -12,7 +12,7 @@ block content
     -}
 
     div
-        table
+        table(style='width:100%', border='1')
             tr
                 th Nombre
                 th Fecha de Lanzamiento
@@ -30,5 +30,3 @@ block content
                     td #{val.programador.email}
                     td
                         a(href=`/verProgramador/${val.programador._id}`) Ver datos
-                            
-    

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+    .main.container
+        .row
+            .col-md-6.col-md-offset-2
+                table(style='width:100%', border='1')
+                    tr
+                        th Nombre
+                        th Email
+                        th Pais
+                        th Ver Datos
+                    each val in users
+                        tr
+                            td #{val.nombre}
+                            td #{val.email}
+                            td #{val.pais.nombre}
+                            td
+                                a(href=`/verUser/${val._id}`) Ir a Perfil
+                a(href='/addUser') Agregar Cuenta de Usuario
+                            

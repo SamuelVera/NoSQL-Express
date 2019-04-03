@@ -1,0 +1,15 @@
+extends layout
+block content
+
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+
+                h1.display-4.m-b-2 Añadir a la WishList de #{user.email}
+                form(method='POST' action=`/addToWishList/${user._id}`)
+                    div.form-group
+                        label(for='apps') App:
+                        select(name='app')
+                            each val in apps
+                                option(value=`${val._id}`) #{val.nombre}
+                    button.btn.btn-primary(type='submit') Añadir

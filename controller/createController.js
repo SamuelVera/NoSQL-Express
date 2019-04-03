@@ -30,9 +30,10 @@ exports.saveApp = async (req, res) => {
     const programador = req.params._id
 
     const appToAdd = new App({
+        _id: new objectId(),
         nombre,
         descripcion,
-        fechaLazamiento: new Date(),
+        fechaLanzamiento: new Date(),
         precio,
         features,
         categoria: categoriaPrincipal,
@@ -43,7 +44,12 @@ exports.saveApp = async (req, res) => {
     })
 
     await appToAdd.save()
+    await Programador.updateOne({
+        _id: programador
+    },{
+        $push: {aplicacionesId: appToAdd._id}
+    })
 
-    res.redirect('/getAllApps')
+    res.redirect('/getAllApp')
 }
 
