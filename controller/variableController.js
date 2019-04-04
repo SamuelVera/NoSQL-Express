@@ -122,3 +122,11 @@ exports.goToAddProgramador = async (req, res) => {
         title: 'NoSQL'
     })
 }
+
+expors.goToAddUser = async (req, res) => {
+    const paises = await Pais.find()
+    res.render('addUser',{
+        paises,
+        title: 'NoSQL'
+    })
+}

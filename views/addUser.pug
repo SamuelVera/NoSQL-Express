@@ -4,9 +4,9 @@ block content
     .main.container
         .row
             .col-md-6.col-md-offset-3
-                h1.display-4.m-b-2 Agregar Programador
+                h1.display-4.m-b-2 Agregar Usuario
                 
-                form(method='POST' action=`/addProgramador`)
+                form(method='POST' action=`/addUser`)
                     div.form-group
                         label(for='nombre') Nombre:
                         input#nombre.form-control(type='text', placeholder='Nombre' name='nombre')
@@ -14,14 +14,8 @@ block content
                         label(for='email') Email:
                         input#email.form-control(type='email', placeholder='Correo Electrónico' name='email')
                     div.form-group
-                        label(for='direccion') Dirección:
-                        input#direccion.form-control(type='text', placeholder='Dirección' name='direccion')
-                    div.form-group
-                        label(for='sitioWeb') Sitio Web:
-                        input#sitioWeb.form-control(type='text', placeholder='Sitio Web' name='sitioWeb')
-                    div.form-group
                         label(for='pais') Paises:
                         select(name='pais')
                             each val in paises
                                 option(value=`${val._id}`) #{val.nombre}
-                    button.btn.btn-primary(type='submit') Crear Programador
+                    button.btn.btn-primary(type='submit') Crear Usuario

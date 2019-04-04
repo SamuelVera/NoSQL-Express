@@ -4,7 +4,7 @@ const { catchErrors } = require('../handlers/errorHandlers')
 const { getAllCategorias, getAllApps, getProgramador, getApp, getAppsByCategoria, getAllUsers,
         getUser, getAllProgramadores, verReviews } = require('../controller/readController')
 const { goToCreateApp, goToAddToWishList, goToDownloadApp, lookForUpdate,
-        goToAddCreditCard, goToUpdateUser, goToAddProgramador } = require('../controller/variableController')
+        goToAddCreditCard, goToUpdateUser, goToAddProgramador, gotoAddUser } = require('../controller/variableController')
 const { addToWishList, downloadApp, addCreditCard, updateUser } = require('../controller/updateController')
 const { saveApp, saveUser, saveProgramador } = require('../controller/createController')
 
@@ -31,5 +31,7 @@ router.get('/verProgramador/:_id', catchErrors(getProgramador))
 router.get('/addProgramador',catchErrors(goToAddProgramador))
 router.post('/addProgramador',catchErrors(saveProgramador))
 router.get('/verReviews/:_id', catchErrors(verReviews))
+router.get('/addUser', catchErrors(gotoAddUser))
+router.post('/addUser', catchErrors(saveUser))
 
 module.exports = router;

@@ -77,10 +77,34 @@ exports.saveProgramador = async (req, res) => {
 
     console.log(programadorAdd)
 
-    //await programadorAdd.save()
+    await programadorAdd.save()
 
-    res.render('getAllProgramadores',{
-        title: 'NoSQL'
+    res.redirect('/getAllProgramadores')
+
+}
+
+exports.saveUser =async (req, res) => {
+    const {
+        nombre,
+        email,
+        pais
+    } = req.body
+
+    const paisToAdd = await Pais.findOne({
+        _id: pais
     })
+
+    const userToAdd = new User({
+        nombre,
+        email,
+        pais: paisToAdd,
+        tarjetasCredito: [],
+        wishList: [],
+        biblioteca: []
+    })
+
+    await userToAdd.save()
+
+    res.redirec('/getAllUsers')
 
 }
